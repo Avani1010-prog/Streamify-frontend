@@ -1,20 +1,40 @@
-import { Link, useLocation } from "react-router-dom"; // ✅ fixed import
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "../lib/api";
 import { BellIcon, LogOutIcon, ShipWheelIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector.jsx";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
+  const navigate = useNavigate();
   const isChatPage = location.pathname?.startsWith("/chat");
 
   const queryClient = useQueryClient();
 
-  const { mutate: logoutMutation } = useMutation({
+  const { mutate: logoutMutation, isPending } = useMutation({
     mutationFn: logout,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+    onSuccess: () => {
+      // Set authUser to null immediately
+      queryClient.setQueryData(["authUser"], null);
+      
+      // Clear all cached queries
+      queryClient.removeQueries();
+      
+      toast.success("Logged out successfully!");
+      
+      // Use replace to prevent going back to authenticated pages
+      navigate("/login", { replace: true });
+      
+      // Force reload to clear any remaining state
+      window.location.href = "/login";
+    },
+    onError: (error) => {
+      console.error("Logout error:", error);
+      toast.error(error?.response?.data?.message || "Logout failed");
+    },
   });
 
   return (
@@ -64,8 +84,14 @@ const Navbar = () => {
             <button
               className="btn btn-ghost btn-circle btn-sm md:btn-md"
               onClick={() => logoutMutation()}
+              disabled={isPending}
+              title="Logout"
             >
-              <LogOutIcon className="h-5 w-5 md:h-6 md:w-6 text-base-content opacity-70" />
+              {isPending ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : (
+                <LogOutIcon className="h-5 w-5 md:h-6 md:w-6 text-base-content opacity-70" />
+              )}
             </button>
           </div>
         </div>
