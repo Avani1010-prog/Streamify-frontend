@@ -17,22 +17,18 @@ const Navbar = () => {
   const { mutate: logoutMutation, isPending } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      // Set authUser to null immediately
+      // Set authUser to null immediately to trigger redirect
       queryClient.setQueryData(["authUser"], null);
       
       // Clear all cached queries
-      queryClient.removeQueries();
+      queryClient.clear();
       
       toast.success("Logged out successfully!");
       
-      // Use replace to prevent going back to authenticated pages
-      navigate("/login", { replace: true });
-      
-      // Force reload to clear any remaining state
+      // Force redirect to login with replace to prevent back navigation
       window.location.href = "/login";
     },
     onError: (error) => {
-      console.error("Logout error:", error);
       toast.error(error?.response?.data?.message || "Logout failed");
     },
   });
