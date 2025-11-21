@@ -1,16 +1,139 @@
-# React + Vite
+# 📚 Streamify – Frontend (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **language‑learning chat application** offering real‑time messaging, video calling, social connections, and a smooth onboarding experience.
 
-Currently, two official plugins are available:
+This README explains the full **frontend structure**, **user flow**, **features**, and includes a **complete flowchart** for clarity.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features (Frontend)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✅ Authentication & Onboarding
 
-## Expanding the ESLint configuration
+* User **Sign Up**
+* User **Sign In** (existing accounts go directly to Home)
+* **Onboarding screen** shown only after first sign‑up
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 💬 Chat System
+
+* 1‑to‑1 chat
+* Send texts, documents, images, media
+* Real‑time messaging with typing indicators & online status
+
+### 🎥 Video Calling
+
+* High‑quality peer‑to‑peer video/audio calls
+
+### 👥 Social System
+
+* Send/accept friend requests
+* See all contacts
+* Start chat anytime
+
+### 🎨 Theme Customization
+
+* Light / Dark mode
+* Accent theme selection
+
+### 🔔 Notifications
+
+* Message notifications
+* Request notifications
+* Call notifications
+
+---
+
+## 📁 Project Structure (Frontend)
+
+```
+/src
+ ├── components
+ ├── pages
+ ├── routes
+ ├── context
+ ├── hooks
+ ├── services
+ ├── styles
+ └── utils
+```
+
+---
+
+## 🔄 Complete User Flow (Frontend)
+
+```mermaid
+flowchart TD
+
+A[User Opens App] --> B{Existing User?}
+
+B -- No --> C[Sign Up Page]
+C --> D[Onboarding Screen]
+D --> E[Home Page]
+
+B -- Yes --> F[Sign In Page]
+F --> E[Home Page]
+
+E --> G[See Friend List]
+E --> H[Send Friend Requests]
+E --> I[Open Chat Window]
+E --> J[Check Notifications]
+E --> K[Change Theme]
+
+I --> L[Send Messages / Documents / Images]
+I --> M[Start Video Call]
+```
+
+---
+
+## 🏠 Home Page Overview
+
+The Home Page contains:
+
+* Chat list
+* Friend request section
+* Theme switcher
+* Notifications panel
+* Profile menu
+
+---
+
+## 🔧 Tech Stack (Frontend)
+
+* **React**
+* **React Router**
+* **Context API / Zustand**
+* **WebRTC** (for video calls)
+* **Socket.io Client** (for real‑time chat)
+* **Tailwind CSS / Custom SCSS**
+* **Axios** (for API calls)
+
+---
+
+## 🚀 How to Run (Frontend)
+
+```
+npm install
+npm start
+```
+
+---
+
+## 📦 Build for Production
+
+```
+npm run build
+```
+
+---
+
+## 🎯 Summary
+
+Streamify provides a complete language‑learning communication experience with:
+✔ Smooth onboarding
+✔ Real‑time messaging
+✔ Video calls
+✔ Document sharing
+✔ Friend system
+✔ Fully customizable theme
+
+---
