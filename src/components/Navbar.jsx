@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuthUser from "../hooks/useAuthUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logout } from "../lib/api";
-import { BellIcon, LogOutIcon, ShipWheelIcon } from "lucide-react";
+import { BellIcon, LogOutIcon, ShipWheelIcon, UsersIcon } from "lucide-react";
 import ThemeSelector from "./ThemeSelector.jsx";
 import toast from "react-hot-toast";
 
@@ -55,6 +55,13 @@ const Navbar = () => {
 
           {/* Right Side Controls */}
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4 ml-auto">
+            {/* Friends - Only visible on mobile */}
+            <Link to="/friends" className="lg:hidden">
+              <button className="btn btn-ghost btn-circle btn-sm md:btn-md">
+                <UsersIcon className="h-5 w-5 md:h-6 md:w-6 text-base-content opacity-70" />
+              </button>
+            </Link>
+
             {/* Notifications */}
             <Link to="/notifications">
               <button className="btn btn-ghost btn-circle btn-sm md:btn-md">
