@@ -22,6 +22,9 @@ const LoginPage = () => {
   } = useMutation({
     mutationFn: login,
     onSuccess: () => {
+      // Clear the logout flag
+      localStorage.removeItem("isLoggedOut");
+      
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
       toast.success("Logged in successfully!");
       navigate("/");

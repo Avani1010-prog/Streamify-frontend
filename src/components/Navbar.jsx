@@ -23,12 +23,16 @@ const Navbar = () => {
       // Clear all cached queries
       queryClient.clear();
       
+      // Mark as logged out in localStorage (frontend-side flag)
+      localStorage.setItem("isLoggedOut", "true");
+      
       toast.success("Logged out successfully!");
       
       // Force redirect to login with replace to prevent back navigation
-      window.location.href = "/login";
+      window.location.replace("/login");
     },
     onError: (error) => {
+      console.error("Logout error:", error);
       toast.error(error?.response?.data?.message || "Logout failed");
     },
   });

@@ -19,7 +19,12 @@ const SignUpPage = () => {
     error,
   } = useMutation({
     mutationFn: signup,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+    onSuccess: () => {
+      // Clear the logout flag
+      localStorage.removeItem("isLoggedOut");
+      
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+    },
   });
 
   const handleSignup = (e) => {
